@@ -35,12 +35,8 @@ sampleAlbums.push({
              genres: [ 'piano' ]
            });
 /* end of hard-coded data */
-$.ajax({
-    method: 'GET',
-    url: '/api/albums',
-    success: handleSuccess,
-    error: handleError
-  });
+
+
 
 function handleSuccess (albums) {
     albums.forEach(function(album) {
@@ -55,6 +51,16 @@ function handleError(err){
 $(document).ready(function() {
   console.log('app.js loaded!');
   renderAlbum(sampleAlbums[0]);
+
+  $.ajax({
+      method: 'GET',
+      url: '/api/albums',
+      success: handleSuccess,
+      error: handleError
+    });
+  $('#singlebutton').on("submit", function() {
+    preventDefault()
+  })
 });
 // this function takes a single album and renders it to the page
 function renderAlbum(album) {

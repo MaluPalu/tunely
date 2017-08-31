@@ -17,6 +17,10 @@ app.get('/', function (req, res){
   res.sendFile('views/index.html' , {root : __dirname});
 });
 
+app.get('/api/albums', controllers.album.index);
+
+
+
 app.get('/api/albums', function (req, res) {
   db.Album.find(function(err, albums){
     if (err) {
