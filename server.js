@@ -1,15 +1,14 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const db = require("./models");
-
 const app = express();
-
 const controllers = require('./controllers');
 
 app.get('/api', controllers.api.index);
 
 app.use(express.static('public'));
 
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 
@@ -18,6 +17,12 @@ app.get('/', function (req, res){
 });
 
 app.get('/api/albums', controllers.album.index);
+
+app.post('/api/albums', controllers.album.create);
+
+app.delete('/api/albums/:id', controllers.album.destroy);
+
+app.put('/api/albums/:id', controllers.album.update);
 
 
 

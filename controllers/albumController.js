@@ -14,17 +14,32 @@ function index(req, res) {
 
 // POST /api/albums
 function create(req, res) {
-  // create an album based on request body and send it back as JSON
+  //create album using form data from req parameter
+  var newAlbum = new db.Album({
+    artistName: req.body.artistName,
+    name: req.body.name,
+    releaseDate: req.body.releaseDate,
+    genres: req.body.genres.split(","),
+  });
+  // add that album to the database
+newAlbum.save(function(err, album){
+  if (err) {
+    return console.log("create error: " + err);
+  }
+  console.log("created", album.name);
+  res.json(album);
+});
+
 
 }
 
 // GET /api/albums/:albumId
-function show(req, res) {
+function retrieve(req, res) {
   // find one album by id and send it back as JSON
 }
 
 // DELETE /api/albums/:albumId
-function destroy(req, res) {
+function destroy(req, res, id) {
   // find one album by id, delete it, and send it back as JSON
 }
 
@@ -37,7 +52,7 @@ function update(req, res) {
 module.exports = {
   index: index,
   create: create,
-  show: show,
+  retrieve: retrieve,
   destroy: destroy,
   update: update
 };
